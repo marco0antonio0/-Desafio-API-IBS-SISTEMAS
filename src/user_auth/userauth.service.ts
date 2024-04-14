@@ -87,7 +87,6 @@ export class UserauthService {
 
         try {
             const res = await this.databaseService.query(`SELECT * FROM user WHERE email = ?`, [email])
-
             // Se a consulta retornar linhas
             if (Array.isArray(res[0])) {
                 return res[0] as RowDataPacket[];

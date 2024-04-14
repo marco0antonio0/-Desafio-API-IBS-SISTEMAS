@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Connection, ResultSetHeader, RowDataPacket } from 'mysql2/promise';
-import { UserDto, UserUpdateDTO } from 'src/user/validation/user.dto';
-import { RegisterAuthDto } from 'src/user_auth/validation/register.dto';
+
 
 @Injectable()
 export class DatabaseService {
@@ -16,6 +15,14 @@ export class DatabaseService {
             return [];
         }
 
+    }
+
+    async closeConnection(): Promise<void> {
+        try {
+            await this.connection.end();  // Encerra a conexão
+        } catch (error) {
+            console.error('Error closing the database connection:', error);
+        }
     }
 
 }
