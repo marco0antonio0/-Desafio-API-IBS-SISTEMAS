@@ -9,54 +9,16 @@ O objetivo deste desafio é desenvolver uma API REST em Node.js que permita a re
 ### Tecnologias Utilizadas
 
 - **NestJS**: Framework Node.js para construir aplicações de servidor eficientes e escaláveis.
-- **MariaDB**: Sistema de gerenciamento de banco de dados SQL.
-- **Docker**: Plataforma para desenvolver, enviar e executar aplicações em containers.
+- **MySQL-Hostinger**: Sistema de gerenciamento de banco de dados SQL.
 - **Swagger**: Ferramenta para documentação de APIs REST.
 
 ## Como Executar
 
-### Pré-requisitos
-
-- Docker instalado
-- Docker Compose instalado
-- Portas 3306 (MariaDB), 3000 (API NestJS), e 8080 (phpMyAdmin) disponíveis
-
 ### Instruções
 
-1. Clone este repositório e navegue até a pasta do projeto.
+1. Consulte os [endpoints](#endpoints-de-autenticação)
 
-    ```curl
-    git clone https://github.com/marco0antonio0/Desafio-API-IBS-SISTEMAS
-    ```
-
-2. Configure as variáveis de ambiente criando um arquivo `.env` na raiz do projeto com as seguintes variáveis:
-
-    ```env
-    HOSTPROD=localhost
-    USERPROD=root
-    PASSWORDPROD="Example1_5MGvTMcjwsEAed3"
-    DATABASEPROD=mydb
-    SECRETTOKEN="Example2_5MGvTMcjwsEAed3"
-    PORT=3000
-    ```
-
-3. Execute o seguinte comando para iniciar todos os serviços definidos no Docker Compose:
-
-    ```sh
-    docker-compose up -d
-    ```
-
-4. A API estará acessível em `http://localhost:3000`, phpMyAdmin em `http://localhost:8080`, e o banco de dados MariaDB na porta 3306.
-
-## Docker Compose
-
-O `docker-compose.yml` define três serviços principais:
-
-- **node-rest-api**: Container customizado para executar a aplicação NestJS.
-- **mariadb**: Banco de dados MariaDB para persistência de dados.
-- **phpmyadmin**: Interface web para gerenciar o banco de dados MariaDB.
-
-Os dados do banco de dados são persistentes e armazenados localmente na pasta `mariadb_data`.
+2. faça um acesso ao endereço [https://api-desafio-d87c8746780f.herokuapp.com/api](https://api-desafio-d87c8746780f.herokuapp.com/api)
 
 ## Documentação da API
 
