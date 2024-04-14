@@ -33,7 +33,7 @@ export class UserDto {
         example: "2000-02-24"
     })
     @IsDateString()
-    dataNascimento: string;
+    data_nascimento: string;
 
     @ApiProperty({
         enum: ['solteiro', 'casado', 'divorciado', 'uniao instavel'],
@@ -41,7 +41,7 @@ export class UserDto {
         example: "solteiro"
     })
     @IsIn(['solteiro', 'casado', 'divorciado', 'uniao instavel'])
-    estadoCivil: 'solteiro' | 'casado' | 'divorciado' | 'uniao instavel';
+    estado_civil: 'solteiro' | 'casado' | 'divorciado' | 'uniao instavel';
 
     @ApiProperty({
         description: "Entrada do tipo number",

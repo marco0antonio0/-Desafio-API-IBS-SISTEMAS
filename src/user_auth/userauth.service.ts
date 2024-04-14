@@ -92,14 +92,12 @@ export class UserauthService {
                 return res[0] as RowDataPacket[];
             }
 
-            // Se a consulta for uma operação de modificação (INSERT, UPDATE, DELETE, etc.)
-            if ((res[0] as ResultSetHeader).affectedRows !== undefined) {
-                return [{ affectedRows: (res[0] as ResultSetHeader).affectedRows }] as ResultSetHeader[];
-            }
+
 
             // Se a consulta não retornar nada
             return [];
         } catch (error) {
+            console.log(error)
             return [];
 
         }

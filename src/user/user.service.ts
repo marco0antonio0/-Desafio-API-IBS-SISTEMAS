@@ -18,10 +18,7 @@ export class UserService {
             return res[0] as RowDataPacket[];
         }
 
-        // Se a consulta for uma operação de modificação (INSERT, UPDATE, DELETE, etc.)
-        if ((res[0] as ResultSetHeader).affectedRows !== undefined) {
-            return [{ affectedRows: (res[0] as ResultSetHeader).affectedRows }] as ResultSetHeader[];
-        }
+
 
         // Se a consulta não retornar nada
         return [];
@@ -36,10 +33,6 @@ export class UserService {
             return res[0] as RowDataPacket[];
         }
 
-        // Se a consulta for uma operação de modificação (INSERT, UPDATE, DELETE, etc.)
-        if ((res[0] as ResultSetHeader).affectedRows !== undefined) {
-            return [{ affectedRows: (res[0] as ResultSetHeader).affectedRows }] as ResultSetHeader[];
-        }
 
         // Se a consulta não retornar nada
         return [];
@@ -52,11 +45,6 @@ export class UserService {
         // Se a consulta retornar linhas
         if (Array.isArray(res[0])) {
             return res[0] as RowDataPacket[];
-        }
-
-        // Se a consulta for uma operação de modificação (INSERT, UPDATE, DELETE, etc.)
-        if ((res[0] as ResultSetHeader).affectedRows !== undefined) {
-            return [{ affectedRows: (res[0] as ResultSetHeader).affectedRows }] as ResultSetHeader[];
         }
 
         // Se a consulta não retornar nada
@@ -86,27 +74,27 @@ export class UserService {
             email,
             user.nome,
             user.sexo,
-            user.dataNascimento,
-            user.estadoCivil,
+            user.data_nascimento,
+            user.estado_civil,
             user.cep,
             user.endereco,
             user.numero,
             user.complemento ? user.complemento : "",
             user.bairro,
             user.estado,
-            user.estado]
+            user.cidade]
         try {
             const verify = await this.databaseService.query('SELECT * FROM ficha WHERE email = ?', [email])
-            if (!verify) {
-                const res = await this.databaseService.query("INSERT INTO ficha (id ,email , nome, sexo, dataNascimento, estadoCivil, cep, endereco, numero, complemento, bairro, estado, cidade) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", lista_de_dados)
-                return [true]
+            if (verify[0].lenght == undefined) {
+                const res = await this.databaseService.query("INSERT INTO ficha (id ,email , nome, sexo, data_nascimento, estado_civil, cep, endereco, numero, complemento, bairro, estado, cidade) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", lista_de_dados)
+                var resultado = res[0] == undefined
+                return [!resultado]
             } else {
                 throw new ConflictException("ficha ja existente")
             }
 
         } catch (error) {
             throw new ConflictException(error)
-            return [false]
 
         }
 
