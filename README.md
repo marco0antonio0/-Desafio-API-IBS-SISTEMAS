@@ -1,73 +1,114 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Desafio API - IBS SISTEMAS
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este projeto, desenvolvido em NestJS, implementa uma API REST para gerenciar registros de pessoas, permitindo operações CRUD (Create, Read, Update, Delete). Cada registro contém informações como nome, sexo, data de nascimento, estado civil e endereços. A segurança é garantida por meio de autenticação e autorização de usuários.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+### Desafio Proposto
 
-## Description
+O objetivo deste desafio é desenvolver uma API REST em Node.js que permita a realização de operações CRUD em registros de pessoas, com autenticação de usuários para acesso à API.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Tecnologias Utilizadas
 
-## Installation
+- **NestJS**: Framework Node.js para construir aplicações de servidor eficientes e escaláveis.
+- **MariaDB**: Sistema de gerenciamento de banco de dados SQL.
+- **Docker**: Plataforma para desenvolver, enviar e executar aplicações em containers.
+- **Swagger**: Ferramenta para documentação de APIs REST.
 
-```bash
-$ npm install
-```
+## Como Executar
 
-## Running the app
+### Pré-requisitos
 
-```bash
-# development
-$ npm run start
+- Docker instalado
+- Docker Compose instalado
+- Portas 3306 (MariaDB), 3000 (API NestJS), e 8080 (phpMyAdmin) disponíveis
 
-# watch mode
-$ npm run start:dev
+### Instruções
 
-# production mode
-$ npm run start:prod
-```
+1. Clone este repositório e navegue até a pasta do projeto.
 
-## Test
+    ```curl
+    git clone https://github.com/marco0antonio0/Desafio-API-IBS-SISTEMAS
+    ```
 
-```bash
-# unit tests
-$ npm run test
+2. Configure as variáveis de ambiente criando um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
-# e2e tests
-$ npm run test:e2e
+    ```env
+    HOSTPROD=localhost
+    USERPROD=root
+    PASSWORDPROD="Example1_5MGvTMcjwsEAed3"
+    DATABASEPROD=mydb
+    SECRETTOKEN="Example2_5MGvTMcjwsEAed3"
+    PORT=3000
+    ```
 
-# test coverage
-$ npm run test:cov
-```
+3. Execute o seguinte comando para iniciar todos os serviços definidos no Docker Compose:
 
-## Support
+    ```sh
+    docker-compose up -d
+    ```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+4. A API estará acessível em `http://localhost:3000`, phpMyAdmin em `http://localhost:8080`, e o banco de dados MariaDB na porta 3306.
 
-## Stay in touch
+## Docker Compose
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+O `docker-compose.yml` define três serviços principais:
 
-## License
+- **node-rest-api**: Container customizado para executar a aplicação NestJS.
+- **mariadb**: Banco de dados MariaDB para persistência de dados.
+- **phpmyadmin**: Interface web para gerenciar o banco de dados MariaDB.
 
-Nest is [MIT licensed](LICENSE).
+Os dados do banco de dados são persistentes e armazenados localmente na pasta `mariadb_data`.
+
+## Documentação da API
+
+A documentação da API é detalhada abaixo, incluindo informações sobre autenticação e os endpoints disponíveis.
+
+### Autenticação
+
+Todos os endpoints, exceto `/auth/login`, `/auth/register` e `/auth/check-token`, requerem autenticação. O token JWT deve ser incluído no cabeçalho `Authorization` das requisições, no formato `Authorization: Bearer YourTokenJWT`.
+
+#### Endpoints de Autenticação
+
+- **POST /auth/login**
+  - **Descrição**: Realiza o login do usuário.
+  - **Permissão de Acesso**: Todos.
+  - **Dados de Entrada**: `email`, `senha`.
+- **POST /auth/register**
+  - **Descrição**: Registra um novo usuário.
+  - **Permissão de Acesso**: Todos.
+  - **Dados de Entrada**: `nome`, `senha`, `email`.
+- **POST /auth/check-token**
+  - **Descrição**: Valida o token JWT fornecido.
+  - **Permissão de Acesso**: Todos.
+  - **Dados de Entrada no Headers**: `Authorization: Bearer YourTokenJWT`.
+
+#### Endpoints de Gerenciamento de Usuários e Fichas
+
+- **GET /user/id**
+  - **Descrição**: Consulta todas as fichas de usuários.
+  - **Permissão de Acesso**: Somente SuperAdmin.
+  
+- **GET /user/search-id**
+  - **Descrição**: Consulta uma única ficha de usuário pelo ID.
+  - **Permissão de Acesso**: SuperAdmin, Proprietário.
+  - **Parâmetro na URL**: `id`.
+  
+- **GET /user/search-email**
+  - **Descrição**: Consulta uma única ficha de usuário pelo e-mail.
+  - **Permissão de Acesso**: SuperAdmin, Proprietário.
+  - **Parâmetro na URL**: `email`.
+  
+- **POST /user/create-ficha**
+  - **Descrição**: Cria uma nova ficha de usuário.
+  - **Permissão de Acesso**: SuperAdmin, Proprietário.
+  - **Dados de Entrada**: `nome`, `sexo`, `data de nascimento`, `estado civil`, `endereços`.
+  
+- **DELETE /user/delete-ficha**
+  - **Descrição**: Deleta a ficha de um usuário pelo e-mail.
+  - **Permissão de Acesso**: SuperAdmin, Proprietário.
+  - **Parâmetro na URL**: `email`.
+  
+- **PUT /user/update-ficha**
+  - **Descrição**: Atualiza a ficha de um usuário.
+  - **Permissão de Acesso**: SuperAdmin, Proprietário.
+  - **Dados de Entrada**: `nome`, `sexo`, `data de nascimento`, `estado civil`, `endereços`.
+  - **Parâmetro na URL**: `email`.
