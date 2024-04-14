@@ -1,7 +1,8 @@
 # Desafio API - IBS SISTEMAS
 
 Este projeto, desenvolvido em NestJS, implementa uma API REST para gerenciar registros de pessoas, permitindo operações CRUD (Create, Read, Update, Delete). Cada registro contém informações como nome, sexo, data de nascimento, estado civil e endereços. A segurança é garantida por meio de autenticação e autorização de usuários.
-
+### Documentação extensa no Swagger
+Acesse em [https://api-desafio-d87c8746780f.herokuapp.com/api](https://api-desafio-d87c8746780f.herokuapp.com/api)
 ### Desafio Proposto
 
 O objetivo deste desafio é desenvolver uma API REST em Node.js que permita a realização de operações CRUD em registros de pessoas, com autenticação de usuários para acesso à API.
@@ -18,7 +19,7 @@ O objetivo deste desafio é desenvolver uma API REST em Node.js que permita a re
 
 1. Consulte os [endpoints](#endpoints-de-autenticação)
 
-2. faça um acesso ao endereço [https://api-desafio-d87c8746780f.herokuapp.com/api](https://api-desafio-d87c8746780f.herokuapp.com/api)
+2. faça uma consulta no **swagger docs** acessando o endereço [https://api-desafio-d87c8746780f.herokuapp.com/api](https://api-desafio-d87c8746780f.herokuapp.com/api)
 
 ## Documentação da API
 
