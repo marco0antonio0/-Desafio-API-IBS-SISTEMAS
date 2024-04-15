@@ -3,9 +3,20 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { createDatabaseConnection, query0, query1 } from './database/database.config';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
 async function bootstrap() {
+  const corsOptions: CorsOptions = {
+    origin: '*', // Permitir solicitações de qualquer origem
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos permitidos
+    allowedHeaders: 'Content-Type, Authorization', // Cabeçalhos permitidos
+    credentials: true, // Permitir credenciais (como cookies, tokens de autenticação)
+    // Você pode adicionar outras opções de configuração aqui, se necessário
+  };
+
   const app = await NestFactory.create(AppModule);
+  app.enableCors(corsOptions);
+
   app.useGlobalPipes(new ValidationPipe());
 
   const connection = await createDatabaseConnection({
@@ -47,6 +58,8 @@ Este projeto consiste no desenvolvimento de uma API REST utilizando o framework 
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+
+
   await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
