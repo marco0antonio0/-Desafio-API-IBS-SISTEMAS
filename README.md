@@ -1,4 +1,4 @@
-# Desafio API - IBS SISTEMAS
+# Desafio API - SISTEMAS
 
 Este projeto, desenvolvido em NestJS, implementa uma API REST para gerenciar registros de pessoas, permitindo operações CRUD (Create, Read, Update, Delete). Cada registro contém informações como nome, sexo, data de nascimento, estado civil e endereços. A segurança é garantida por meio de autenticação e autorização de usuários.
 ### Documentação extensa no Swagger
