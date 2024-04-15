@@ -2,7 +2,7 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, Controller, Headers, Post, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Post, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { UserAuthDto } from './validation/Auth.dto';
 import { RegisterAuthDto } from './validation/register.dto';
 import { DatabaseService } from 'src/database/database.service';
@@ -11,6 +11,7 @@ import { LoginAuthDto } from './validation/login.dto';
 import { TokenAuthDto } from './validation/checkToken.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AdminPermissionsAuthGuard } from 'src/guards/AdminPermissions.guard';
 
 @ApiTags("Login | Registro | Validação de token")
 @Controller("auth")
@@ -42,5 +43,17 @@ export class UserauthController {
     async checkToken(@Req() req) {
         // let response = await this.userauthService.checkToken(obj)
         return { decode: 'ok', content: req.tokenPayload }
+    }
+
+
+    // rota -- read
+    // apenas o admin pode ter acesso a rota get-all
+    @UseGuards(AdminPermissionsAuthGuard)
+    @ApiOperation({ description: "Consulta todos as fichas de usuarios\n\n acesso permitido apenas para superAdmin" })
+    @ApiBearerAuth()
+    @Get('all')
+    async read(@Req() req) {
+        const users = await this.userauthService.consultaUsersByAll();
+        return { status: true, payloadToken: req.tokenPayload, router: "Read By All auth", content: users, }
     }
 }

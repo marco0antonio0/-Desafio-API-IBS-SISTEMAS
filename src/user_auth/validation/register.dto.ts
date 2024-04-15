@@ -1,6 +1,6 @@
 // create-user.dto.ts
 
-import { IsString, IsStrongPassword, IsNumberString, IsJWT, IsOptional, IsEmail } from 'class-validator';
+import { IsString, IsStrongPassword, IsNumberString, IsJWT, IsOptional, IsEmail, IsDateString } from 'class-validator';
 import { UserAuthDto } from './Auth.dto';
 import { PartialType } from '@nestjs/mapped-types';
 import { ApiProperty } from '@nestjs/swagger';
@@ -8,6 +8,9 @@ import { ApiProperty } from '@nestjs/swagger';
 
 // declarando a classe UserDto
 export class RegisterAuthDto extends UserAuthDto {
+
+    @IsDateString()
+    data_nascimento: string;
 
     @ApiProperty({
         description: "Entrada do tipo email('string')",

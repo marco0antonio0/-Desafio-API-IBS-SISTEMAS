@@ -105,12 +105,32 @@ export class UserauthService {
     }
 
     async cadastroUserAuth(user: RegisterAuthDto): Promise<any[]> {
-
         try {
-            const res = await this.databaseService.query(`INSERT INTO user (id, nome, senha, email) VALUES (NULL, ?, ?, ?)`, [user.nome, user.senha, user.email])
+            const res = await this.databaseService.query(`INSERT INTO user (id, nome, senha, email,data_nascimento) VALUES (NULL, ?, ?, ?, ?)`, [user.nome, user.senha, user.email, user.data_nascimento])
             return [true]
         } catch (error) {
             return [false]
+        }
+
+    }
+
+    async consultaUsersByAll(): Promise<any[]> {
+
+        try {
+            const res = await this.databaseService.query(`SELECT * FROM user`, [])
+            // Se a consulta retornar linhas
+            if (Array.isArray(res[0])) {
+                return res[0] as RowDataPacket[];
+            }
+
+
+
+            // Se a consulta não retornar nada
+            return [];
+        } catch (error) {
+            console.log(error)
+            return [];
+
         }
 
     }
